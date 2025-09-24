@@ -1,35 +1,42 @@
-# Build stage
-FROM node:18-alpine AS build
+#multistage_build
 
-# Set working directory
+
+#stage-1
+
+#base image
+ FROM node:18-alpine As build
+
+#set workdir
 WORKDIR /app
 
-# Copy package files
+#copy package into app dir
 COPY package*.json ./
 
-# Install all dependencies
-RUN npm ci
+#Install dependencies
+RUN npm  ci
 
-# Copy source code
-COPY . .
+#copy source code
+COPY . . 
 
-# Build the application
+#build application
 RUN npm run build
 
-# Production stage
-FROM node:18-alpine
+#stage2
 
-# Set working directory
+#base image
+From node:18-alpine As deploy
+
+#set workdir
 WORKDIR /app
 
-# Copy built assets from the build stage
+#copy requirements from build stage
 COPY --from=build /app/dist ./dist
 
-# Install a simple HTTP server
+#install web server
 RUN npm install -g http-server
 
-# Expose port
+#Expose port
 EXPOSE 8080
 
-# Start the server
-CMD ["http-server", "dist", "-p", "8080", "-c-1"]
+#starting the server
+CMD [ "http-server","dist","-p","8080","-c-1" ]
