@@ -1,191 +1,363 @@
-# Super Mario Bros - Browser Game
 
-A fully functional Super Mario Bros game built with TypeScript, HTML5 Canvas, and modern web technologies. This game runs entirely in the browser and includes classic Mario mechanics like jumping, enemy stomping, coin collection, and platform physics.
+# 🎮 Super Mario Bros - Browser Game
 
-## 🎮 Game Features
+A fully functional **Super Mario Bros clone** built with **TypeScript**, **HTML5 Canvas**, and modern web technologies.  
+The game runs entirely in the browser and replicates classic Mario mechanics like jumping, enemy stomping, coin collection, and platform physics.  
 
-- **Authentic Mario Movement**: Physics-based player movement with running, jumping, and momentum
-- **Enemy AI**: Goombas that patrol platforms and can be defeated by jumping
-- **Collectibles**: Coins with animated collection effects
-- **Level Design**: Multi-platform levels with varying difficulty
-- **Score System**: Points for collecting coins and defeating enemies
-- **Lives System**: Traditional 3-lives gameplay with game over screen
-- **Sound Effects**: Web Audio API generated retro sound effects
-- **Responsive Design**: Scales to different screen sizes
+This project was originally inspired by a YouTube tutorial.  
+👉 My contribution and focus is on the **DevOps side** — specifically:
+- **Containerizing** the application with Docker  
+- **Deploying** the game on **Google Cloud Platform (GCP)** for global access  
+
+---
+
+## ✨ Game Features
+
+- **Authentic Mario Movement**: Physics-based running, jumping, and momentum  
+- **Enemy AI**: Goombas that patrol platforms and can be defeated by jumping  
+- **Collectibles**: Animated coins with scoring system  
+- **Lives System**: Traditional 3-lives gameplay with Game Over screen  
+- **Level Design**: Multi-platform levels with progressive difficulty  
+- **Sound Effects**: Retro-inspired audio using Web Audio API  
+- **Responsive Design**: Scales for different screen sizes  
+- **Global Access**: Deployed on **GCP Compute Engine** using Docker  
+
+---
 
 ## 🏗️ Project Structure
 
 ```
+
 ├── src/
 │   ├── game/
 │   │   ├── entities/
-│   │   │   ├── Player.ts          # Player character with physics and controls
+│   │   │   ├── Player.ts          # Player physics and controls
 │   │   │   ├── Enemy.ts           # Enemy AI and behavior
 │   │   │   ├── Coin.ts            # Collectible coins with animations
-│   │   │   └── Platform.ts        # Platform/ground collision objects
-│   │   ├── Game.ts                # Main game controller and state management
-│   │   ├── GameRenderer.ts        # Rendering engine for all game objects
-│   │   ├── InputHandler.ts        # Keyboard input management
-│   │   ├── SoundManager.ts        # Audio effects using Web Audio API
-│   │   └── CollisionDetector.ts   # Physics collision detection system
+│   │   │   └── Platform.ts        # Ground/platform objects
+│   │   ├── Game.ts                # Main game controller
+│   │   ├── GameRenderer.ts        # Canvas rendering engine
+│   │   ├── InputHandler.ts        # Keyboard input manager
+│   │   ├── SoundManager.ts        # Sound effects
+│   │   └── CollisionDetector.ts   # Physics collision detection
 │   ├── styles/
-│   │   └── game.css               # Game UI and canvas styling
-│   └── main.ts                    # Application entry point and game loop
+│   │   └── game.css               # UI & canvas styling
+│   └── main.ts                    # Application entry point
 ├── index.html                     # Main HTML file
 ├── Dockerfile                     # Container configuration
-├── package.json                   # Dependencies and scripts
+├── package.json                   # Dependencies & scripts
 └── README.md                      # This file
-```
 
-## 🎯 Game Architecture
+````
 
-### Core Components
-
-1. **Game.ts** - Central game controller that:
-   - Manages game state (playing, game over)
-   - Coordinates all game entities
-   - Handles collision detection
-   - Updates score, lives, and level progression
-
-2. **Player.ts** - Mario character implementation:
-   - Physics-based movement with gravity and friction
-   - Jump mechanics with proper air control
-   - Platform collision detection
-   - Animation state management
-
-3. **Enemy.ts** - Goomba enemy behavior:
-   - Autonomous movement with direction changes
-   - Platform-aware AI that doesn't fall off edges
-   - Collision detection with player and platforms
-
-4. **GameRenderer.ts** - Rendering system:
-   - Pixel-perfect sprite drawing
-   - Background and environment rendering
-   - Animation frame management
-   - Responsive canvas scaling
-
-5. **InputHandler.ts** - Input management:
-   - Real-time keyboard state tracking
-   - Smooth movement input processing
-   - Focus and blur event handling
-
-### Game Mechanics
-
-- **Movement**: Arrow keys for left/right movement with momentum
-- **Jumping**: Spacebar for jumping with variable height based on hold duration
-- **Combat**: Jump on enemies to defeat them and gain points
-- **Collection**: Touch coins to collect them for score
-- **Lives**: Start with 3 lives, lose one when hit by enemy or falling
-- **Progression**: Clear all coins and enemies to advance to next level
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18 or higher
-- npm or yarn package manager
+
+- Node.js 18+
+- npm or yarn
 
 ### Local Development
 
-1. **Clone and install dependencies:**
 ```bash
-git clone <repository-url>
-cd super-mario-game
+git clone https://github.com/Kowshik-mk/Project-SuperMario.git
+cd Project-SuperMario
 npm install
-```
-
-2. **Start the development server:**
-```bash
 npm run dev
-```
+````
 
-3. **Open your browser and navigate to the local development URL**
+Open your browser at the local dev URL.
 
-### Building for Production
+### Build for Production
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## 🐳 Docker Containerization
+---
 
-This application can be containerized using Docker for easy deployment and distribution.
+## 🐳 Docker Containerization (My DevOps Contribution)
 
-### Building the Docker Image
+### Build & Run Locally
 
-1. **Build the image:**
 ```bash
 docker build -t super-mario-game .
-```
-
-2. **Run the container:**
-```bash
 docker run -p 8080:8080 super-mario-game
 ```
 
-3. **Access the game:**
-Open your browser and navigate to `http://localhost:8080`
+➡️ Access locally at: [http://localhost:8080](http://localhost:8080)
 
-### Docker Image Details
+### Dockerfile Highlights
 
-The Dockerfile:
-- Uses Node.js 18 Alpine for a lightweight base image
-- Installs dependencies and builds the application
-- Serves the built files using http-server
-- Exposes port 8080 for web access
-- Includes proper .dockerignore for optimized builds
+* Multistage file for size reduction
+* Node.js 18 Alpine base image
+* Installs dependencies & builds app
+* Serves static files via `http-server`
+* Exposes port 8080
 
-### Production Deployment
+---
 
-For production deployment, you can push the Docker image to a container registry:
+## ☁️ GCP Deployment (My DevOps Contribution)
 
-```bash
-# Tag for registry
-docker tag super-mario-game your-registry/super-mario-game:latest
+The game is deployed globally on **Google Cloud Platform (GCP Compute Engine)** using Docker.
 
-# Push to registry
-docker push your-registry/super-mario-game:latest
+### Steps to Deploy on GCP
 
-# Deploy to your container platform
-docker run -d -p 80:8080 your-registry/super-mario-game:latest
+1. **Build Docker Image**
+
+   ```bash
+   docker build -t gcr.io/<kowshikmk>/super-mario-game:v1 .
+   ```
+
+2. **Push Image to Google Container Registry**
+
+   ```bash
+   gcloud auth configure-docker
+   docker push gcr.io/<kowshikmk>/super-mario-game:v1
+   ```
+
+3. **Deploy on Compute Engine VM**
+
+   * Create a VM instance in GCP
+   * Install Docker on the VM
+   * Pull and run the image:
+
+     ```bash
+     docker run -d -p 80:8080 gcr.io/<your-project-id>/super-mario-game:v1
+     ```
+
+4. **Enable HTTP Traffic**
+
+   * In GCP console → VM Instance → Networking → Firewall
+   * Enable **Allow HTTP traffic**
+
+5. **Access the Game Globally**
+
+   ```
+   http://<GCP-external-IP>
+   ```
+
+✅ This makes the game available to anyone on the internet.
+
+---
+
+## 🎮 Controls
+
+* **← / →** : Move Mario
+* **Spacebar** : Jump (hold for higher jumps)
+* **R** : Restart after Game Over
+
+---
+
+## 🔧 Technical Highlights
+
+* **Collision**: Efficient AABB (Axis-Aligned Bounding Box)
+* **Performance**: Frame-rate independent logic with delta time
+* **Type Safety**: TypeScript-based modular design
+* **Code Quality**: ESLint + modular architecture
+
+---
+
+## 🎨 Customization Ideas
+
+* Add new enemies by extending `Enemy.ts`
+* Create new levels in `Game.ts`
+* Add power-ups & animations
+* Modify physics constants for difficulty adjustment
+
+---
+
+## 🙌 Acknowledgements
+
+* Game logic and frontend inspired by a Got it 👍 You want to make it clear in the README that **your unique contribution is the DevOps part** (containerization + GCP deployment). I’ll highlight that clearly so recruiters/others see the difference between the tutorial and your work.
+
+Here’s the **final improved README.md**:
+
+---
+
+```markdown
+# 🎮 Super Mario Bros - Browser Game
+
+A fully functional **Super Mario Bros clone** built with **TypeScript**, **HTML5 Canvas**, and modern web technologies.  
+The game runs entirely in the browser and replicates classic Mario mechanics like jumping, enemy stomping, coin collection, and platform physics.  
+
+This project was originally inspired by a YouTube tutorial.  
+👉 My contribution and focus is on the **DevOps side** — specifically:
+- **Containerizing** the application with Docker  
+- **Deploying** the game on **Google Cloud Platform (GCP)** for global access  
+
+---
+
+## ✨ Game Features
+
+- **Authentic Mario Movement**: Physics-based running, jumping, and momentum  
+- **Enemy AI**: Goombas that patrol platforms and can be defeated by jumping  
+- **Collectibles**: Animated coins with scoring system  
+- **Lives System**: Traditional 3-lives gameplay with Game Over screen  
+- **Level Design**: Multi-platform levels with progressive difficulty  
+- **Sound Effects**: Retro-inspired audio using Web Audio API  
+- **Responsive Design**: Scales for different screen sizes  
+- **Global Access**: Deployed on **GCP Compute Engine** using Docker  
+
+---
+
+## 🏗️ Project Structure
+
 ```
 
-## 🎮 Game Controls
+├── src/
+│   ├── game/
+│   │   ├── entities/
+│   │   │   ├── Player.ts          # Player physics and controls
+│   │   │   ├── Enemy.ts           # Enemy AI and behavior
+│   │   │   ├── Coin.ts            # Collectible coins with animations
+│   │   │   └── Platform.ts        # Ground/platform objects
+│   │   ├── Game.ts                # Main game controller
+│   │   ├── GameRenderer.ts        # Canvas rendering engine
+│   │   ├── InputHandler.ts        # Keyboard input manager
+│   │   ├── SoundManager.ts        # Sound effects
+│   │   └── CollisionDetector.ts   # Physics collision detection
+│   ├── styles/
+│   │   └── game.css               # UI & canvas styling
+│   └── main.ts                    # Application entry point
+├── index.html                     # Main HTML file
+├── Dockerfile                     # Container configuration
+├── package.json                   # Dependencies & scripts
+└── README.md                      # This file
 
-- **Arrow Left/Right**: Move Mario left or right
-- **Spacebar**: Jump (hold for higher jumps)
-- **R**: Restart game (when game over)
+````
 
-## 🔧 Technical Implementation
+---
 
-### Performance Optimizations
-- Efficient collision detection using AABB (Axis-Aligned Bounding Box)
-- Optimized rendering with minimal canvas operations
-- Frame-rate independent game logic using delta time
-- Memory-efficient entity management
+## 🚀 Getting Started
 
-### Browser Compatibility
-- Modern ES6+ features with TypeScript compilation
-- Web Audio API for sound (gracefully degrades if unsupported)
-- Canvas 2D API for graphics (widely supported)
-- Responsive design for various screen sizes
+### Prerequisites
+- Node.js 18+
+- npm or yarn
 
-### Code Quality
-- TypeScript for type safety and better development experience
-- Modular architecture with clear separation of concerns
-- ESLint configuration for code quality
-- Comprehensive file organization following best practices
+### Local Development
+```bash
+git clone https://github.com/Kowshik-mk/Project-SuperMario.git
+cd Project-SuperMario
+npm install
+npm run dev
+````
 
-## 🎨 Customization
+Open your browser at the local dev URL.
 
-The game is designed to be easily customizable:
+### Build for Production
 
-- **Add new enemies**: Extend the Enemy class with new types
-- **Create new levels**: Modify the level initialization in Game.ts
-- **Change graphics**: Update the rendering methods in GameRenderer.ts
-- **Add power-ups**: Create new collectible entities
-- **Modify physics**: Adjust constants in Player.ts and Enemy.ts
+```bash
+npm run build
+npm run preview
+```
 
-## 📝 License
+---
 
-This project is created for educational and demonstration purposes. Super Mario Bros is a trademark of Nintendo.
+## 🐳 Docker Containerization (My DevOps Contribution)
+
+### Build & Run Locally
+
+```bash
+docker build -t super-mario-game .
+docker run -p 8080:8080 super-mario-game
+```
+
+➡️ Access locally at: [http://localhost:8080](http://localhost:8080)
+
+### Dockerfile Highlights
+
+* Node.js 18 Alpine base image
+* Installs dependencies & builds app
+* Serves static files via `http-server`
+* Exposes port 8080
+
+---
+
+## ☁️ GCP Deployment (My DevOps Contribution)
+
+The game is deployed globally on **Google Cloud Platform (GCP Compute Engine)** using Docker.
+
+### Steps to Deploy on GCP
+
+1. **Build Docker Image**
+
+   ```bash
+   docker build -t gcr.io/<your-project-id>/super-mario-game:v1 .
+   ```
+
+2. **Push Image to Google Container Registry**
+
+   ```bash
+   gcloud auth configure-docker
+   docker push gcr.io/<your-project-id>/super-mario-game:v1
+   ```
+
+3. **Deploy on Compute Engine VM**
+
+   * Create a VM instance in GCP
+   * Install Docker on the VM
+   * Pull and run the image:
+
+     ```bash
+     docker run -d -p 80:8080 gcr.io/<your-project-id>/super-mario-game:v1
+     ```
+
+4. **Enable HTTP Traffic**
+
+   * In GCP console → VM Instance → Networking → Firewall
+   * Enable **Allow HTTP traffic**
+
+5. **Access the Game Globally**
+
+   ```
+   http://<your-vm-external-ip>
+   ```
+
+✅ This makes the game available to anyone on the internet.
+
+---
+
+## 🎮 Controls
+
+* **← / →** : Move Mario
+* **Spacebar** : Jump (hold for higher jumps)
+* **R** : Restart after Game Over
+
+---
+
+## 🔧 Technical Highlights
+
+* **Collision**: Efficient AABB (Axis-Aligned Bounding Box)
+* **Performance**: Frame-rate independent logic with delta time
+* **Type Safety**: TypeScript-based modular design
+* **Code Quality**: ESLint + modular architecture
+
+---
+
+## 🎨 Customization Ideas
+
+* Add new enemies by extending `Enemy.ts`
+* Create new levels in `Game.ts`
+* Add power-ups & animations
+* Modify physics constants for difficulty adjustment
+
+---
+
+## 🙌 Acknowledgements
+
+* Game logic and frontend inspired by a (https://www.youtube.com/@AbhishekVeeramalla).
+* **DevOps (Dockerization + GCP Deployment)** fully implemented by me.
+
+---
+
+
+## 📜 License
+This project is based on an educational YouTube tutorial [(link)](https://www.youtube.com/@AbhishekVeeramalla).  
+The core game logic is credited to the original creator, while the **DevOps (Dockerization + GCP Deployment)** was implemented by me.  
+Released under the MIT License.
+
+```
